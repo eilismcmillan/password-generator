@@ -1,11 +1,11 @@
-// Assignment code here
-
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
+  // set password to an empty string that can be added upon
   var password = "";
+  // set variables for all character types
   var lowerCase = [
     "a",
     "b",
@@ -94,12 +94,13 @@ function writePassword() {
     "~",
   ];
 
+  // set empty character set variable
   var characterSet;
 
+  // set the length of password variable to be the nurmerical value given by user
   var passwordLength = prompt(
-    "Length of password? (must be between 8 and 128 characters)",
+    "Length of password? (must be between 8 and 128 characters)"
   );
-  console.log(passwordLength);
 
   // sets condition ensuring the user input for password length is between 8 and 128 characters
   if (passwordLength >= 8 && passwordLength <= 128) {
@@ -127,6 +128,7 @@ function writePassword() {
     ) {
       // sets character set if all character types are selected
       // concatenates the character type variables based on the types selected
+      // to create character type array based on user preferences
       if (
         lowercaseConfirm &&
         uppercaseConfirm &&
@@ -135,60 +137,52 @@ function writePassword() {
       ) {
         characterSet = lowerCase.concat(upperCase, numbers, specialCharacters);
 
-        // accounts for all variations in which the user selects three character types to include
+      // accounts for all variations in which the user selects three character types to include
       } else if (lowercaseConfirm && uppercaseConfirm && numbersConfirm) {
         characterSet = lowerCase.concat(upperCase, numbers);
-
       } else if (lowercaseConfirm && uppercaseConfirm && specialcharsConfirm) {
         characterSet = lowerCase.concat(upperCase, specialCharacters);
-
       } else if (lowercaseConfirm && numbersConfirm && specialcharsConfirm) {
         characterSet = lowerCase.concat(numbers, specialCharacters);
-
       } else if (uppercaseConfirm && numbersConfirm && specialcharsConfirm) {
         characterSet = upperCase.concat(numbers, specialCharacters);
 
-        // accounts for all variations in which the user selects two character types
+      // accounts for all variations in which the user selects two character types
       } else if (lowercaseConfirm && uppercaseConfirm) {
         characterSet = lowerCase.concat(upperCase);
-
       } else if (lowercaseConfirm && numbersConfirm) {
         characterSet = lowerCase.concat(numbers);
-
       } else if (lowercaseConfirm && specialcharsConfirm) {
         characterSet = lowerCase.concat(specialCharacters);
-
       } else if (uppercaseConfirm && numbersConfirm) {
         characterSet = upperCase.concat(numbers);
-
       } else if (uppercaseConfirm && specialcharsConfirm) {
         characterSet = upperCase.concat(specialCharacters);
-
       } else if (numbersConfirm && specialcharsConfirm) {
         characterSet = numbers.concat(specialCharacters);
 
-        // variations if only one character type is selected
+      // variations if only one character type is selected
       } else if (lowercaseConfirm) {
         characterSet = lowerCase;
-
       } else if (uppercaseConfirm) {
         characterSet = upperCase;
-
       } else if (numbersConfirm) {
         characterSet = numbers;
-
       } else if (specialcharsConfirm) {
         characterSet = specialCharacters;
       }
 
       // uses the variable 'characterSet'
       // the character set variable used is determined by the user selections, and corresponding conditional statement
-      // to
+      // for loop is iteraterad the to create as many indices as password length
+      // value of index is randomised using the function, and is chosen from the character type array
       for (var i = 0; i < passwordLength; i++) {
         password =
           password +
           characterSet[Math.floor(Math.random() * characterSet.length)];
       }
+
+    // else statements to return alerts if user inputs are invalid
     } else {
       alert("Must select at least one character type");
     }
@@ -197,7 +191,7 @@ function writePassword() {
   } else {
     alert("Password must be between 8 and 128 characters");
   }
-
+  // inputs the generated password into the HTML User Interface
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
 }
